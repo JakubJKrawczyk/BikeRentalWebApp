@@ -1,22 +1,125 @@
-html {
-  font-size: 14px;
+/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+
+body{
+  font-family: "Calibri Light";
+  background: white;
 }
 
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+a {
+  color: black;
+  text-decoration: none;
+}
+a:hover{
+  color:black;
 }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+.btn-primary {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
 }
 
-html {
+.icon{
+    width: 50px !important;
+    height: 50px !important;
+}
+.details_image {
+    width: 300px !important;
+    height: 200px !important;
+}
+
+
+.border-top {
+  border-top: 1px solid #e5e5e5;
+}
+.border-bottom {
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.box-shadow {
+  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+button.accept-policy {
+  font-size: 1rem;
+  line-height: inherit;
+}
+
+.footer {
+  position:absolute;
+  bottom: 0;
+  width: 100%;
+  white-space: nowrap;
+  line-height: 60px;
+}
+
+
+/* Sekcja Header */
+
+.logo{
+  width:30%;
+  height:50px;
+  float:left;
+  text-align: center;
+}
+.menu{
+  text-align: right;
+  float:left;
+  width:70%;
+  height:50px;
+  margin-right:0;
+}
+.menu ul{
+  list-style: none;
+  width:50%;
+  height: 50px;
+  line-height: 50px;
+}
+.menu ul li{
+  float:left;
+  margin-right:10px;
+  font-size: 30px;
+}
+.logo h1{
+  font-family: "Cooper Black";
+}
+
+header {
+    height: 50px;
+    -webkit-box-shadow: 0px 30px 15px -20px rgba(66, 68, 90, 1);
+    -moz-box-shadow: 0px 30px 15px -20px rgba(66, 68, 90, 1);
+    box-shadow: 0px 30px 15px -20px rgba(66, 68, 90, 1);
+    margin-bottom:20px;
+}
+/* underline menu animation */
+.underline {
+  display: inline;
   position: relative;
-  min-height: 100%;
+  overflow: hidden;
+}
+.underline:after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  right: 0;
+  width: 0;
+  bottom: -5px;
+  background: #000;
+  height: 4px;
+  transition-property: width;
+  transition-duration: 0.3s;
+  transition-timing-function: ease-out;
+}
+.underline:hover:after,
+.underline:focus:after,
+.underline:active:after {
+  left: 0;
+  right: auto;
+  width: 100%;
 }
 
-body {
-  margin-bottom: 60px;
+.home{
+  width:90%;
+  margin: 10px auto 0 auto;
 }

@@ -22,6 +22,18 @@ public class HomeController : Controller
     {
         return View();
     }
+    public IActionResult AboutUs()
+    {
+        return View();
+    }
+    public IActionResult Cooperation()
+    {
+        return View();
+    }
+    public ActionResult RentalPoints()
+    {
+        return View();
+    }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()

@@ -1,0 +1,36 @@
+﻿@model BikeRentalWebApp.Models.RentalPointViewModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>RentalPointViewModel</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Miasto)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Miasto)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Ulica)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Ulica)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Numer)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Numer)
+        </dd>
+    </dl>
+</div>
+<div>
+    <!-- <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |-->
+    <a class="btn btn-secondary" asp-controller="RentalPoints" asp-action="List">Back to List</a>
+</div>

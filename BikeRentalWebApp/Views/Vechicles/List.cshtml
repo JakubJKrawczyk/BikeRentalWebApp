@@ -1,0 +1,64 @@
+﻿@model IEnumerable<BikeRentalWebApp.Models.VechicleViewModel>
+
+@{
+    ViewData["Title"] = "Rowery";
+}
+
+<h1>Oto nasze pojazdy!</h1>
+
+<p>
+     <a class="btn btn-primary" asp-controller="Vechicles" asp-action="Create">Create New</a>  
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            
+            <th>
+                @Html.DisplayNameFor(model => model.Brand)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Model)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Type)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Image)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            
+            <td>
+                @Html.DisplayFor(modelItem => item.Brand)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Model)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Type)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+                <td>
+                    <img class="icon" src="@Url.Content(item.Image)" />
+                </td>
+               
+            <td>
+                   
+                    @Html.ActionLink("Szczegóły", "Details", new { id = item.Id }) | 
+                    @Html.ActionLink("Edytuj", "Edit", new { id = item.Id }) | 
+                    @Html.ActionLink("Usuń", "Delete", new { id = item.Id })
+                
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
