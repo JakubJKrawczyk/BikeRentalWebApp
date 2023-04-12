@@ -2,6 +2,7 @@ using AutoMapper;
 using BikeRentalWebApp.Database;
 using BikeRentalWebApp.Database.Repos;
 using BikeRentalWebApp.Database.Repos.Entities;
+using BikeRentalWebApp.Database.Validatior;
 using BikeRentalWebApp.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Drawing;
@@ -13,8 +14,9 @@ public class VechiclesController : Controller
 
     VechiclesRepository repo = new VechiclesRepository();
 
-    Mapper mapper;
-    Mapper mapperDetails;
+    private Mapper mapper;
+    private Mapper mapperDetails;
+    private VechicleValidator validator;
     public VechiclesController()
     {
         var config = new MapperConfiguration(cfg => cfg.CreateMap<Vechicle, VechicleViewModel>());
@@ -22,7 +24,7 @@ public class VechiclesController : Controller
 
         mapper = new Mapper(config);
         mapperDetails = new Mapper(configDetails);
-
+        validator = new();
     }
     // GET
     public IActionResult List()
@@ -88,21 +90,34 @@ public class VechiclesController : Controller
     [HttpPost]
     public IActionResult Edit(Guid id, string brand, string model, VechicleType type, decimal price, string image, string description)
     {
-        try
-        {
-
-        var bikeToEdit = new Vechicle(id, brand, model, type, price,description , image);
-
+        var bikeToEdit = new Vechicle(id, brand, model, type, price, description, image);
         if (bikeToEdit == null) return RedirectToAction("List");
-
-        repo.Edit(bikeToEdit);
-       
-
-        return RedirectToAction("List");
-        }catch(Exception e)
+        var result = validator.Validate(bikeToEdit);
+        if (result.IsValid)
         {
-            throw new Exception(e.Message);
+            try
+            {
+
+                repo.Edit(bikeToEdit);
+
+
+
+
+
+
+                return RedirectToAction("List");
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+
         }
+        else
+        {
+            return RedirectToAction("List");
+        }
+        
         
     }
 
@@ -127,15 +142,23 @@ public class VechiclesController : Controller
     public ActionResult Create(string Brand, string Model, VechicleType Type, decimal Price, string Description, string Image)
     {
         Vechicle vech = new(Brand, Model, Type, Price, Description, Image);
-
-        try
+        var result = validator.Validate(vech);
+        if (result.IsValid)
         {
-            repo.Add(vech);
-            return RedirectToAction("List");
+            try
+            {
+                repo.Add(vech);
+                return RedirectToAction("List");
+            }
+            catch
+            {
+                return View();
+            }
         }
-        catch
+        else
         {
-            return View();
+            return Redirect(nameof(List));
         }
+        
     }
 }

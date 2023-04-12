@@ -2,7 +2,9 @@
 using BikeRentalWebApp.Database;
 using BikeRentalWebApp.Database.Repos;
 using BikeRentalWebApp.Database.Repos.Entities;
+using BikeRentalWebApp.Database.Validatior;
 using BikeRentalWebApp.Models;
+using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
@@ -12,10 +14,12 @@ namespace BikeRentalWebApp.Controllers
     public class RentalPointsController : Controller
     {
         private Mapper mapper;
+        private RentalPointValidator validator;
         public RentalPointsController()
         {
             var config = new MapperConfiguration(cfg => cfg.CreateMap<RentalPoint, RentalPointViewModel>());
             mapper = new Mapper(config);
+            validator = new();
         }
 
         RentalPointsRepository repo = new();
@@ -70,12 +74,17 @@ namespace BikeRentalWebApp.Controllers
                 int.TryParse(Numer, out var num);
 
                 RentalPoint rental = new(Miasto, Ulica, num);
-                if (!ModelState.IsValid)
+                ValidationResult result = validator.Validate(rental);
+                if (result.IsValid)
+                {
+                repo.Add(rental);
+                return RedirectToAction(nameof(List));
+
+                }
+                else
                 {
                     return RedirectToAction(nameof(List));
                 }
-                repo.Add(rental);
-                return RedirectToAction(nameof(List));
             }
             catch
             {
@@ -107,9 +116,14 @@ namespace BikeRentalWebApp.Controllers
         {
             try
             {
-                   
-
+                int.TryParse(Numer, out var num);
+                var rental = new RentalPoint(id, Miasto, Ulica, num);
+                if (validator.Validate(rental).IsValid)
+                {
                 repo.Edit(id,Miasto,Ulica,Numer);
+
+                }
+                
 
                 return RedirectToAction(nameof(List));
             }
