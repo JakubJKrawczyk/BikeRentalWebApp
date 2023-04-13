@@ -39,6 +39,7 @@ namespace BikeRentalWebApp.Controllers
                 mapper.Map(point, view);
                     list.Add(view);
                 }
+            Warning.warningMessage = "";
             return View(list);
         }
         // GET: RentalPointsController/Details/5
@@ -61,6 +62,7 @@ namespace BikeRentalWebApp.Controllers
         // GET: RentalPointsController/Create
         public ActionResult Create()
         {
+            
             return View();
         }
 
@@ -78,12 +80,14 @@ namespace BikeRentalWebApp.Controllers
                 if (result.IsValid)
                 {
                 repo.Add(rental);
-                return RedirectToAction(nameof(List));
+                    Warning.warningMessage = "";
+                    return RedirectToAction(nameof(List));
 
                 }
                 else
                 {
-                    return RedirectToAction(nameof(List));
+                    Warning.warningMessage = result.Errors.FirstOrDefault().ErrorMessage;
+                    return RedirectToAction(nameof(Create));
                 }
             }
             catch
@@ -101,6 +105,7 @@ namespace BikeRentalWebApp.Controllers
                 if(toEdit is not null)
                 {
                 mapper.Map(toEdit, view);
+                
                 return View(view);
 
                 }
@@ -118,10 +123,16 @@ namespace BikeRentalWebApp.Controllers
             {
                 int.TryParse(Numer, out var num);
                 var rental = new RentalPoint(id, Miasto, Ulica, num);
-                if (validator.Validate(rental).IsValid)
+                var result = validator.Validate(rental);
+                if (result.IsValid)
                 {
                 repo.Edit(id,Miasto,Ulica,Numer);
-
+                    Warning.warningMessage = "";
+                }
+                else
+                {
+                    Warning.warningMessage = result.Errors.FirstOrDefault().ErrorMessage;
+                    return RedirectToAction(nameof(Edit));
                 }
                 
 

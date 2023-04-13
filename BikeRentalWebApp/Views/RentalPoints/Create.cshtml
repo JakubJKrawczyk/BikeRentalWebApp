@@ -1,5 +1,5 @@
 ﻿@model BikeRentalWebApp.Models.RentalPointViewModel
-
+@using static BikeRentalWebApp.Controllers.Warning
 @{
     ViewData["Title"] = "Create";
 
@@ -11,7 +11,12 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
+        <div style="color:red">
+            @BikeRentalWebApp.Controllers.Warning.warningMessage
+        </div>
         <form asp-controller="RentalPoints" asp-action="Create">
+
+            
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Miasto" class="control-label"></label>

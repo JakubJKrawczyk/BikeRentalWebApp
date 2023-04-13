@@ -37,7 +37,8 @@ public class VechiclesController : Controller
             mapper.Map(vechicle, view);
                 list.Add( view);
             }
-            return View(list);
+        Warning.warningMessage = "";
+        return View(list);
 
         
     }
@@ -50,6 +51,7 @@ public class VechiclesController : Controller
         if (bike == null) return RedirectToAction("List");
         VechicleDetailViewModel view = new();
         mapperDetails.Map(bike, view);
+       
         return View(view);
     }
 
@@ -99,6 +101,7 @@ public class VechiclesController : Controller
             {
 
                 repo.Edit(bikeToEdit);
+                Warning.warningMessage = "";
 
 
 
@@ -115,7 +118,8 @@ public class VechiclesController : Controller
         }
         else
         {
-            return RedirectToAction("List");
+            Warning.warningMessage = result.Errors.FirstOrDefault().ErrorMessage;
+            return RedirectToAction("Edit");
         }
         
         
@@ -148,6 +152,8 @@ public class VechiclesController : Controller
             try
             {
                 repo.Add(vech);
+                Warning.warningMessage = "";
+
                 return RedirectToAction("List");
             }
             catch
@@ -157,7 +163,8 @@ public class VechiclesController : Controller
         }
         else
         {
-            return Redirect(nameof(List));
+            Warning.warningMessage = result.Errors.FirstOrDefault().ErrorMessage;
+            return Redirect(nameof(Create));
         }
         
     }

@@ -42,7 +42,9 @@ using (AppDBContext context = new())
 }
 
 
-
+void ConfigureService(IServiceCollection services)
+{
+}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

@@ -10,6 +10,9 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
+        <div style="color:red">
+            @BikeRentalWebApp.Controllers.Warning.warningMessage
+        </div>
         <form asp-controller="RentalPoints" asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
