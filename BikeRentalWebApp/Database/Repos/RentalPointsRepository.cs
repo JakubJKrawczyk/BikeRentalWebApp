@@ -1,4 +1,5 @@
 ﻿using BikeRentalWebApp.Database.Repos.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace BikeRentalWebApp.Database.Repos
 {
@@ -12,7 +13,7 @@ namespace BikeRentalWebApp.Database.Repos
 
         public List<RentalPoint> GetAll()
         {
-            using (AppDBContext context = new())
+            using (AppDBContext context = new(new DbContextOptions<AppDBContext>()))
             {
                 var list = context.RentalPoints.ToList();
                 return list;
@@ -20,7 +21,7 @@ namespace BikeRentalWebApp.Database.Repos
         }
         public void Add(RentalPoint rentalPoint)
         {
-            using (var context = new AppDBContext())
+            using (var context = new AppDBContext(new DbContextOptions<AppDBContext>()))
             {
                 context.RentalPoints.Add(rentalPoint);
                 context.SaveChanges();
@@ -30,15 +31,15 @@ namespace BikeRentalWebApp.Database.Repos
 
         public void Delete(RentalPoint rentalPoint)
         {
-            using (var context = new AppDBContext())
+            using (var context = new AppDBContext(new DbContextOptions<AppDBContext>()))
             {
                 try
                 {
-                context.RentalPoints.Remove(rentalPoint);
-                context.SaveChanges();
+                    context.RentalPoints.Remove(rentalPoint);
+                    context.SaveChanges();
 
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     throw new Exception(e.Message);
                 }
@@ -48,7 +49,7 @@ namespace BikeRentalWebApp.Database.Repos
 
         public void Edit(Guid id, string Miasto, string Ulica, string Numer)
         {
-            using (var context = new AppDBContext())
+            using (var context = new AppDBContext(new DbContextOptions<AppDBContext>()))
             {
                 RentalPoint point = FindById(id);
 
@@ -64,7 +65,7 @@ namespace BikeRentalWebApp.Database.Repos
 
         public RentalPoint FindById(Guid id)
         {
-            using (var context = new AppDBContext())
+            using (var context = new AppDBContext(new DbContextOptions<AppDBContext>()))
             {
 
                 var rental = context.RentalPoints.FirstOrDefault(x => x.Id == id);

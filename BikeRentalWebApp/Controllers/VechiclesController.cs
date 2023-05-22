@@ -1,11 +1,9 @@
 using AutoMapper;
-using BikeRentalWebApp.Database;
 using BikeRentalWebApp.Database.Repos;
 using BikeRentalWebApp.Database.Repos.Entities;
 using BikeRentalWebApp.Database.Validatior;
 using BikeRentalWebApp.Models;
 using Microsoft.AspNetCore.Mvc;
-using System.Drawing;
 
 namespace BikeRentalWebApp.Controllers;
 
@@ -29,33 +27,33 @@ public class VechiclesController : Controller
     // GET
     public IActionResult List()
     {
-            List<VechicleViewModel> list = new List<VechicleViewModel>();
+        List<VechicleViewModel> list = new List<VechicleViewModel>();
 
-            foreach (var vechicle in repo.GetAll())
-            {
+        foreach (var vechicle in repo.GetAll())
+        {
             VechicleViewModel view = new();
             mapper.Map(vechicle, view);
-                list.Add( view);
-            }
+            list.Add(view);
+        }
         Warning.warningMessage = "";
         return View(list);
 
-        
+
     }
 
     public IActionResult Edit(Guid id)
     {
         var bike = repo.FindById(id);
 
-        
+
         if (bike == null) return RedirectToAction("List");
         VechicleDetailViewModel view = new();
         mapperDetails.Map(bike, view);
-       
+
         return View(view);
     }
 
-    
+
 
     public IActionResult Details(Guid id)
     {
@@ -79,7 +77,7 @@ public class VechiclesController : Controller
 
             VechicleViewModel view = new();
             mapper.Map(bike, view);
-        return View(view);
+            return View(view);
 
         }
     }
@@ -121,8 +119,8 @@ public class VechiclesController : Controller
             Warning.warningMessage = result.Errors.FirstOrDefault().ErrorMessage;
             return RedirectToAction("Edit");
         }
-        
-        
+
+
     }
 
     [HttpPost]
@@ -134,13 +132,14 @@ public class VechiclesController : Controller
             repo.Delete(repo.FindById(id));
 
             return RedirectToAction(nameof(List));
-        }catch(Exception e)
+        }
+        catch (Exception e)
         {
             throw new Exception(e.Message);
         }
-        
+
     }
-   
+
 
     [HttpPost]
     public ActionResult Create(string Brand, string Model, VechicleType Type, decimal Price, string Description, string Image)
@@ -166,6 +165,6 @@ public class VechiclesController : Controller
             Warning.warningMessage = result.Errors.FirstOrDefault().ErrorMessage;
             return Redirect(nameof(Create));
         }
-        
+
     }
 }

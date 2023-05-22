@@ -1,7 +1,5 @@
 ﻿using BikeRentalWebApp.Database.Repos.Entities;
-using BikeRentalWebApp.Models;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Microsoft.CodeAnalysis.VisualBasic.Syntax;
+using Microsoft.EntityFrameworkCore;
 
 namespace BikeRentalWebApp.Database.Repos
 {
@@ -10,12 +8,12 @@ namespace BikeRentalWebApp.Database.Repos
 
         public RentalModelsRepository()
         {
-            
+
         }
 
         public List<RentalModel> GetAll()
         {
-            using (AppDBContext context = new())
+            using (AppDBContext context = new(new DbContextOptions<AppDBContext>()))
             {
                 var list = context.RentalModels.ToList();
                 return list;
@@ -23,7 +21,7 @@ namespace BikeRentalWebApp.Database.Repos
         }
         public void Add(Guid gui, Vechicle vechicle, DateTime to, RentalPoint point)
         {
-            using (var context = new AppDBContext())
+            using (var context = new AppDBContext(new DbContextOptions<AppDBContext>()))
             {
                 var newRentalModel = new RentalModel(gui, vechicle, DateTime.Now, to, point);
                 context.RentalModels.Add(newRentalModel);
@@ -34,7 +32,7 @@ namespace BikeRentalWebApp.Database.Repos
 
         public void Delete(RentalModel rentalModel)
         {
-            using (var context = new AppDBContext())
+            using (var context = new AppDBContext(new DbContextOptions<AppDBContext>()))
             {
                 context.RentalModels.Remove(rentalModel);
                 context.SaveChanges();
@@ -44,7 +42,7 @@ namespace BikeRentalWebApp.Database.Repos
 
         public void Edit(RentalModel rentalnew)
         {
-            using (var context = new AppDBContext())
+            using (var context = new AppDBContext(new DbContextOptions<AppDBContext>()))
             {
                 var RentalToEdit = context.RentalModels.FirstOrDefault(x => x.Id == rentalnew.Id);
                 if (RentalToEdit != null)
@@ -63,7 +61,7 @@ namespace BikeRentalWebApp.Database.Repos
 
         public RentalModel FindById(Guid id)
         {
-            using (var context = new AppDBContext())
+            using (var context = new AppDBContext(new DbContextOptions<AppDBContext>()))
             {
 
                 var rental = context.RentalModels.FirstOrDefault(x => x.Id == id);

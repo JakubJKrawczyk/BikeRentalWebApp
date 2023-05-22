@@ -1,6 +1,5 @@
 ﻿using BikeRentalWebApp.Database.Repos.Entities;
 using FluentValidation;
-using FluentValidation.AspNetCore;
 
 namespace BikeRentalWebApp.Database.Validatior
 {
@@ -9,9 +8,9 @@ namespace BikeRentalWebApp.Database.Validatior
 
         public RentalPointValidator()
         {
-            RuleFor(x => x.Miasto).NotEmpty().Length(1,100).WithMessage("Podaj Miasto");
-            RuleFor(x => x.Numer).NotEmpty().GreaterThan(0).WithMessage("Podaj Numer") ;
-            RuleFor(x => x.Ulica).NotEmpty().Length(1,100).WithMessage("Podaj Ulicę") ;
+            RuleFor(x => x.Miasto).NotEmpty().Length(1, 100).WithMessage("Podaj Miasto");
+            RuleFor(x => x.Numer).NotEmpty().WithMessage("Podaj Numer").GreaterThan(0).WithMessage("Numer nie może być równy lub mniejszy 0");
+            RuleFor(x => x.Ulica).NotEmpty().Length(1, 100).WithMessage("Podaj Ulicę");
         }
 
     }

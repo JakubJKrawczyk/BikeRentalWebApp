@@ -1,0 +1,48 @@
+﻿@model IEnumerable<BikeRentalWebApp.Areas.Roles.Models.Role>
+
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>List</title>
+</head>
+<body>
+<p>
+    <a asp-controller="Role" asp-area="Roles" asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedAt)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedAt)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+               <a asp-controller="Role" asp-area="Roles" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+               <a asp-controller="Role" asp-area="Roles" asp-action="Details" asp-route-id="@item.Id">Details</a> |
+               <a asp-controller="Role" asp-area="Roles" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+</body>
+</html>

@@ -1,6 +1,6 @@
-﻿using System.Diagnostics;
+﻿using BikeRentalWebApp.Models;
 using Microsoft.AspNetCore.Mvc;
-using BikeRentalWebApp.Models;
+using System.Diagnostics;
 
 namespace BikeRentalWebApp.Controllers;
 

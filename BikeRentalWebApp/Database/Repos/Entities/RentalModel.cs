@@ -1,5 +1,9 @@
-﻿namespace BikeRentalWebApp.Database.Repos.Entities
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace BikeRentalWebApp.Database.Repos.Entities
 {
+    [PrimaryKey(nameof(Id))]
+
     public class RentalModel
     {
         public RentalModel()

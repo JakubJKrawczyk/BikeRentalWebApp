@@ -1,17 +1,17 @@
 /* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
 
-body{
-  font-family: "Calibri Light";
-  background: white;
+body {
+    font-family: 'Roboto', sans-serif;
+    background: white;
 }
 
 a {
-  color: black;
-  text-decoration: none;
+    color: black !important;
+    text-decoration: none !important;
 }
 a:hover{
-  color:black;
+  color:black !important;
 }
 
 .btn-primary {
@@ -69,6 +69,8 @@ button.accept-policy {
   width:70%;
   height:50px;
   margin-right:0;
+
+  
 }
 .menu ul{
   list-style: none;
@@ -79,10 +81,11 @@ button.accept-policy {
 .menu ul li{
   float:left;
   margin-right:10px;
-  font-size: 30px;
+  font-size: 20px;
 }
 .logo h1{
   font-family: "Cooper Black";
+      font-size:30px;
 }
 
 header {
@@ -92,11 +95,15 @@ header {
     box-shadow: 0px 30px 15px -20px rgba(66, 68, 90, 1);
     margin-bottom:20px;
 }
+
+.btn-hoover-dark:hover{
+    color:#aeaeae !important;
+}
 /* underline menu animation */
 .underline {
-  display: inline;
-  position: relative;
-  overflow: hidden;
+    display: inline;
+    position: relative;
+    overflow: hidden;
 }
 .underline:after {
   content: "";
@@ -122,4 +129,14 @@ header {
 .home{
   width:90%;
   margin: 10px auto 0 auto;
+}
+.accuont-menu-ul{
+   
+    text-align: right !important;
+    
+    width:40% !important;
+}
+.accuont-menu-ul li{
+    display:inline;
+    
 }

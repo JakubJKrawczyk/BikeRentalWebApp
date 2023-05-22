@@ -1,13 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace BikeRentalWebApp.Models
+﻿namespace BikeRentalWebApp.Models
 {
     public class RentalPointViewModel
     {
 
         public RentalPointViewModel()
         {
-                
+
         }
 
         public RentalPointViewModel(Guid id, string miasto, string ulica, string numer)

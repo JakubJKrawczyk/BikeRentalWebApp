@@ -1,11 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Drawing;
-using System.Xml.Linq;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace BikeRentalWebApp.Database.Repos.Entities
 {
+    [PrimaryKey(nameof(Id))]
+
     public class Vechicle
     {
+
         public Vechicle()
         {
 
@@ -45,5 +46,7 @@ namespace BikeRentalWebApp.Database.Repos.Entities
         public string Description { get; private set; }
 
         public string Image { get; private set; }
+
+
     }
 }

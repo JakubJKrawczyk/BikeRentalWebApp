@@ -1,20 +1,25 @@
-﻿using BikeRentalWebApp.Database.Repos.Entities;
+﻿
+using BikeRentalWebApp.Areas.Users.Models;
+using BikeRentalWebApp.Database.Repos.Entities;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.InMemory;
-using BikeRentalWebApp.Models;
+using BikeRentalWebApp.Areas.Roles.Models;
 
 namespace BikeRentalWebApp.Database
 {
-    public class AppDBContext: DbContext
+    public class AppDBContext : IdentityDbContext<User, IdentityRole, string>
     {
 
         public DbSet<RentalModel> RentalModels { get; set; }
         public DbSet<RentalPoint> RentalPoints { get; set; }
         public DbSet<Vechicle> Vechicles { get; set; }
 
-
-        public AppDBContext()
+        public DbSet<IdentityRole> Roles { get; set; }
+        public DbSet<User> Users { get; set; }
+        public AppDBContext(DbContextOptions<AppDBContext> options) : base(options)
         {
+
 
         }
 
@@ -25,9 +30,11 @@ namespace BikeRentalWebApp.Database
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Ignore<IdentityUser<string>>();
+
         }
-        public DbSet<BikeRentalWebApp.Models.RentalPointViewModel>? RentalPointViewModel { get; set; }
-        public DbSet<BikeRentalWebApp.Models.VechicleViewModel>? VechicleViewModel { get; set; }
-        public DbSet<BikeRentalWebApp.Models.VechicleDetailViewModel>? VechicleDetailViewModel { get; set; }
+        public DbSet<BikeRentalWebApp.Areas.Roles.Models.Role> Role { get; set; } = default!;
     }
 }

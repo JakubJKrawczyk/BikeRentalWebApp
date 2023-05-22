@@ -1,6 +1,5 @@
 using BikeRentalWebApp.Database.Repos.Entities;
 using System.ComponentModel.DataAnnotations;
-using System.Drawing;
 
 namespace BikeRentalWebApp.Models;
 
@@ -20,8 +19,8 @@ public class VechicleViewModel
         Image = vechicle.Image;
     }
 
-    public Guid Id { get; set; }
-    
+    public Guid? Id { get; set; }
+
     [Display(Name = "Marka")]
     public string Brand { get; set; }
 
@@ -30,12 +29,12 @@ public class VechicleViewModel
 
     [Display(Name = "Typ Roweru")]
     public VechicleType Type { get; set; }
-    
+
     [Display(Name = "Cena")]
     public decimal Price { get; set; }
     [Display(Name = "Zdjêcie")]
     public string Image { get; set; }
 
-   
+
 
 }
